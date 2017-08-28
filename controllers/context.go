@@ -3,7 +3,7 @@ package controllers
 import (
 	"gopkg.in/mgo.v2"
 
-	"workspaces/microservices-docker-go-mongodb-master/users/common"
+	"github.com/lop3ziv4n/api-user-golang/common"
 )
 
 // Struct used for maintaining HTTP Request Context

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"workspaces/microservices-docker-go-mongodb-master/users/common"
-	"workspaces/microservices-docker-go-mongodb-master/users/data"
+	"github.com/lop3ziv4n/api-user-golang/common"
+	"github.com/lop3ziv4n/api-user-golang/data"
 
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2"
@@ -32,8 +32,56 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	w.Write(j)
 }
 
+// Handler for HTTP Get - "/users"
+// Return User document by id
+func GetUserById(w http.ResponseWriter, r *http.Request) {
+	// Get id from incoming url
+	vars := mux.Vars(r)
+	id := vars["id"]
+	// Create new context
+	context := NewContext()
+	defer context.Close()
+	c := context.DbCollection("users")
+	repo := &data.UserRepository{c}
+	// Get users form repository
+	user, err := repo.GetById(id)
+	j, err := json.Marshal(UserResource{Data: user})
+	if err != nil {
+		common.DisplayAppError(w, err, "An unexpected error has occurred", 500)
+		return
+	}
+	// Send response back
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}
+
+// Handler for HTTP Get - "/users"
+// Return User document by id
+func GetUserByName(w http.ResponseWriter, r *http.Request) {
+	// Get id from incoming url
+	vars := mux.Vars(r)
+	name := vars["name"]
+	// Create new context
+	context := NewContext()
+	defer context.Close()
+	c := context.DbCollection("users")
+	repo := &data.UserRepository{c}
+	// Get all users form repository
+	users := repo.GetAllByName(name)
+	j, err := json.Marshal(UsersResource{Data: users})
+	if err != nil {
+		common.DisplayAppError(w, err, "An unexpected error has occurred", 500)
+		return
+	}
+	// Send response back
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}
+
 // Handler for HTTP Post - "/users"
-// Create a new Showtime document
+// Create a new User document
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var dataResource UserResource
 	// Decode the incoming User json
@@ -62,13 +110,45 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Write(j)
 }
 
+// Handler for HTTP Put - "/users"
+// Update a User document by id
+func UpdateUser(w http.ResponseWriter, r *http.Request) {
+	// Get id from incoming url
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var dataResource UserResource
+	// Decode the incoming User json
+	err := json.NewDecoder(r.Body).Decode(&dataResource)
+	if err != nil {
+		common.DisplayAppError(w, err, "Invalid User data", 500)
+		return
+	}
+	user := &dataResource.Data
+	// Create new context
+	context := NewContext()
+	defer context.Close()
+	c := context.DbCollection("users")
+	// Create User
+	repo := &data.UserRepository{c}
+	repo.Update(id, user)
+	// Create response data
+	j, err := json.Marshal(dataResource)
+	if err != nil {
+		common.DisplayAppError(w, err, "An unexpected error has occurred", 500)
+		return
+	}
+	// Send response back
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}
+
 // Handler for HTTP Delete - "/users/{id}"
 // Delete a User document by id
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	// Get id from incoming url
 	vars := mux.Vars(r)
 	id := vars["id"]
-
 	// Create new context
 	context := NewContext()
 	defer context.Close()

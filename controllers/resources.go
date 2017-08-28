@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"workspaces/microservices-docker-go-mongodb-master/users/models"
+	"github.com/lop3ziv4n/api-user-golang/models"
 )
 
 type (

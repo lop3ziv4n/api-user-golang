@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"workspaces/microservices-docker-go-mongodb-master/users/common"
-	"workspaces/microservices-docker-go-mongodb-master/users/routers"
+	"github.com/lop3ziv4n/api-user-golang/common"
+	"github.com/lop3ziv4n/api-user-golang/routers"
 )
 
 // Entry point for the program
