@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/lop3ziv4n/api-user-golang/common"
-	"github.com/lop3ziv4n/api-user-golang/data"
+	"github.com/lop3ziv4n/api-user-golang-mongo/common"
+	"github.com/lop3ziv4n/api-user-golang-mongo/data"
 
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2"

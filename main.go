@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/lop3ziv4n/api-user-golang/common"
-	"github.com/lop3ziv4n/api-user-golang/routers"
+	"github.com/lop3ziv4n/api-user-golang-mongo/common"
+	"github.com/lop3ziv4n/api-user-golang-mongo/routers"
 )
 
 // Entry point for the program

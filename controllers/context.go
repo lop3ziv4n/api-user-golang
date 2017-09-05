@@ -3,7 +3,7 @@ package controllers
 import (
 	"gopkg.in/mgo.v2"
 
-	"github.com/lop3ziv4n/api-user-golang/common"
+	"github.com/lop3ziv4n/api-user-golang-mongo/common"
 )
 
 // Struct used for maintaining HTTP Request Context

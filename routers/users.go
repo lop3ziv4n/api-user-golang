@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"github.com/lop3ziv4n/api-user-golang/controllers"
+	"github.com/lop3ziv4n/api-user-golang-mongo/controllers"
 
 	"github.com/gorilla/mux"
 )

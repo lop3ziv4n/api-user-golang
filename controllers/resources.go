@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/lop3ziv4n/api-user-golang/models"
+	"github.com/lop3ziv4n/api-user-golang-mongo/models"
 )
 
 type (
